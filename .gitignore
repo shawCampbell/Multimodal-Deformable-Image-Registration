@@ -1,2 +1,7 @@
 myenv 
 .vscode
+train
+val
+train.zip
+val.zip
+__pycache__
