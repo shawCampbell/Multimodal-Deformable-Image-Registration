@@ -1,0 +1,3 @@
+
+moving_image_shape: [64, 64, 64, 1]  # ultrasound volumes, channel-last
+fixed_image_shape: [64, 64, 64, 1]   # MR volumes, channel-last
