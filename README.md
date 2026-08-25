@@ -1,2 +1,27 @@
+# WORK IN PROGRESS, PROJECT STILL IN EARLY DEVELOPMENT
 # Provided is Code to Start Running a Multimodal Deformable Image Registration Model 
+This work is based off of my honours thesis in Electrical and Computer Engineering at the University of Cape Town. Since Graduating, I have reworked the code with the assistance of an agent to produce a more readable and usable starting place for the code.
 
+## Python Version
+Currently working with:
+```powershell
+Python 3.12.6
+```
+**Note:** Tensorflow is incompatable with the latest version of Python at this time
+
+## Imports
+
+### Voxelmorph and Neurite
+
+ Install Voxelmorph and Neurite 
+
+ ```powershell
+ pip install git+https://github.com/adalca/neurite.git@0776a575eadc3d10d6851a4679b7a305f3a31c65
+ pip install git+https://github.com/voxelmorph/voxelmorph.git@375a1492bb8781cbbaf22f0ca2973e5121484f99
+ ```
+
+ **Why?** Voxelmoprh provides mathematical tools for the warping of images using vector fields, TODO: explain why we need Neurite
+
+ ## Dataset
+
+ The dataset used is from the µ-RegPro Challenge, a previously help competition on the topic. The competition page and dataset can be found at https://muregpro.github.io/assessment.html
