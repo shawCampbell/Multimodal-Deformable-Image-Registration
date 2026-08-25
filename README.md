@@ -1,4 +1,7 @@
 # WORK IN PROGRESS, PROJECT STILL IN EARLY DEVELOPMENT
+
+<img src="/misc/VECTOR_FIELDS.drawio.png" alt="vector-fields" width="50%" height=auto/>
+
 # Provided is Code to Start Running a Multimodal Deformable Image Registration Model 
 This work is based off of my honours thesis in Electrical and Computer Engineering at the University of Cape Town. Since Graduating, I have reworked the code with the assistance of an agent to produce a more readable and usable starting place for the code.
 
