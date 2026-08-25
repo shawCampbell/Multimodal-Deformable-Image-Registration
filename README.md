@@ -1,6 +1,6 @@
 # WORK IN PROGRESS, PROJECT STILL IN EARLY DEVELOPMENT
 <p align="center">
-    <img src="/misc/VECTOR_FIELDS.drawio.png" alt="vector-fields" width="60%" height=auto/>
+    <img src="/misc/VECTOR_FIELDS.drawio.png" alt="vector-fields" width="80%" height=auto/>
 </p>
 
 <p align="center">
