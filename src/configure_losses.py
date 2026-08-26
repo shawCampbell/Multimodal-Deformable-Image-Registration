@@ -18,12 +18,12 @@ def configure_losses(similarity_metric, weak_supervision, lambda_param):
     return losses, loss_weights
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
 
-    heads = ["similarity", "regularisation", "Dice"]
-    print(f"{'config':24s}" + "".join(f"{h:>16s}" for h in heads))
-    for metric in ["NCC", "MSE"]:
-        for weak in [False, True]:
-            _, weights = configure_losses(metric, weak, lambda_param=0.1)
-            tag = f"{metric} / {'weak' if weak else 'unsupervised'}"
-            print(f"{tag:24s}" + "".join(f"{w:>16}" for w in weights))
+#     heads = ["similarity", "regularisation", "Dice"]
+#     print(f"{'config':24s}" + "".join(f"{h:>16s}" for h in heads))
+#     for metric in ["NCC", "MSE"]:
+#         for weak in [False, True]:
+#             _, weights = configure_losses(metric, weak, lambda_param=0.1)
+#             tag = f"{metric} / {'weak' if weak else 'unsupervised'}"
+#             print(f"{tag:24s}" + "".join(f"{w:>16}" for w in weights))

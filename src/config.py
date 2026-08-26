@@ -9,6 +9,8 @@ class Config:
     def __init__(self, file_path='C:\\dev_personal\\Thesis\\config_nfiti.yaml'):
         self.file_path = file_path
         self.config_yaml = self.load_config(self.file_path)
+        self.train_cache = {}
+        self.test_cache = {}
 
     def load_config(self, file_path):
         """Safely loads a YAML configuration file."""

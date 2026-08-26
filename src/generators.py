@@ -3,8 +3,12 @@ from config import Config
 import numpy as np
 from caching import resize_3d_image
 
-def train_generator_(cache, batch_size, moving_image_shape, fixed_image_shape, with_label_inputs=True):
+def train_generator_(config, batch_size, with_label_inputs=True):
     """Infinite shuffled batches. y_true = [fixed image, zero DDF (regularisation target), fixed label]."""
+
+    moving_image_shape = tuple(config.config_yaml["moving_image_shape"])
+    fixed_image_shape = tuple(config.config_yaml["fixed_image_shape"])
+    cache = config.train_cache
 
     all_names = list(cache.keys())
 
@@ -50,8 +54,13 @@ def train_generator_(cache, batch_size, moving_image_shape, fixed_image_shape, w
 
 
 
-def test_generator(cache, batch_size, moving_image_shape, fixed_image_shape, start_index, end_index, label_num, with_label_inputs=True):
+def test_generator(config, batch_size, start_index, end_index, label_num, with_label_inputs=True):
     """Deterministic walk over cache[start:end] for one label structure."""
+
+    moving_image_shape = tuple(config.config_yaml["moving_image_shape"])
+    fixed_image_shape = tuple(config.config_yaml["fixed_image_shape"])
+    cache = config.test_cache
+
     all_names = list(cache.keys())[start_index:end_index]
     n_steps = int(np.floor(len(all_names) / batch_size))
 
@@ -85,34 +94,31 @@ def test_generator(cache, batch_size, moving_image_shape, fixed_image_shape, sta
 
         yield inputs, outputs
 
+# if __name__ == '__main__':
+#     config = Config()
+#     moving_image_shape = tuple(config.config_yaml["moving_image_shape"])
+#     fixed_image_shape = tuple(config.config_yaml["fixed_image_shape"])
 
-# --- Self-check: pull one train batch and one test batch from a synthetic stand-in cache ---
+#     fake_cache = {
+#         f"case_{i:02d}.nii.gz": {
+#             "moving":       np.random.rand(*moving_image_shape).astype("float32"),
+#             "fixed":        np.random.rand(*fixed_image_shape).astype("float32"),
+#             # native-resolution labels holding 6 structures each, like the real NIfTI data
+#             "moving_label": np.random.randint(0, 2, (96, 96, 96, 6)).astype("float32"),
+#             "fixed_label":  np.random.randint(0, 2, (96, 96, 96, 6)).astype("float32"),
+#         }
+#         for i in range(8)
+#     }
 
-if __name__ == '__main__':
-    config = Config()
-    moving_image_shape = tuple(config.config_yaml["moving_image_shape"])
-    fixed_image_shape = tuple(config.config_yaml["fixed_image_shape"])
+#     (inputs, outputs) = next(train_generator_(fake_cache, 4, moving_image_shape, fixed_image_shape))
 
-    fake_cache = {
-        f"case_{i:02d}.nii.gz": {
-            "moving":       np.random.rand(*moving_image_shape).astype("float32"),
-            "fixed":        np.random.rand(*fixed_image_shape).astype("float32"),
-            # native-resolution labels holding 6 structures each, like the real NIfTI data
-            "moving_label": np.random.randint(0, 2, (96, 96, 96, 6)).astype("float32"),
-            "fixed_label":  np.random.randint(0, 2, (96, 96, 96, 6)).astype("float32"),
-        }
-        for i in range(8)
-    }
+#     print("one TRAIN batch:")
+#     for label_name, arr in zip(["moving image", "fixed image", "moving label", "fixed label"], inputs):
+#         print(f"    X  {label_name:14s} {arr.shape}")
+#     print(f"    y  fixed image    {outputs[0].shape}  -> similarity head target")
+#     print(f"    y  zero phi       {outputs[1].shape} -> regularisation head target (all zeros)")
+#     print(f"    y  fixed label    {outputs[2].shape}  -> Dice head target")
 
-    (inputs, outputs) = next(train_generator_(fake_cache, 4, moving_image_shape, fixed_image_shape))
-
-    print("one TRAIN batch:")
-    for label_name, arr in zip(["moving image", "fixed image", "moving label", "fixed label"], inputs):
-        print(f"    X  {label_name:14s} {arr.shape}")
-    print(f"    y  fixed image    {outputs[0].shape}  -> similarity head target")
-    print(f"    y  zero phi       {outputs[1].shape} -> regularisation head target (all zeros)")
-    print(f"    y  fixed label    {outputs[2].shape}  -> Dice head target")
-
-    (val_inputs, val_outputs) = next(test_generator(fake_cache, 4, moving_image_shape, fixed_image_shape,
-                                                    start_index=0, end_index=4, label_num=0, with_label_inputs=True))
-    print("\none TEST batch (deterministic, structure 0):", ", ".join(str(a.shape) for a in val_inputs))
+#     (val_inputs, val_outputs) = next(test_generator(fake_cache, 4, moving_image_shape, fixed_image_shape,
+#                                                     start_index=0, end_index=4, label_num=0, with_label_inputs=True))
+#     print("\none TEST batch (deterministic, structure 0):", ", ".join(str(a.shape) for a in val_inputs))

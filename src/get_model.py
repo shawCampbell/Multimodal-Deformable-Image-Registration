@@ -5,9 +5,14 @@ assert tf.__version__.startswith('2.'), 'This tutorial assumes Tensorflow 2.0+'
 from tensorflow import keras  
 from keras import layers  
 
-def get_model(moving_image_shape, fixed_image_shape, with_label_inputs=True,
-              up_filters=[64, 128, 256], down_filters=[256, 128, 64, 32]):
+def get_model(config, with_label_inputs=True):
     """Residual U-Net: concatenated moving/fixed pair in, dense displacement field (DDF) out."""
+
+    up_filters=config.config_yaml["up_filters"]
+    down_filters=config.config_yaml["down_filters"]
+
+    moving_image_shape = tuple(config.config_yaml["moving_image_shape"])
+    fixed_image_shape = tuple(config.config_yaml["fixed_image_shape"])
 
     input_moving_image = keras.Input(moving_image_shape)
     input_fixed_image = keras.Input(fixed_image_shape)
@@ -78,11 +83,11 @@ def get_model(moving_image_shape, fixed_image_shape, with_label_inputs=True,
     return model
 
 if __name__ == '__main__':
-    config = Config()
+    config = Config(file_path='C:\\dev_personal\\Thesis\\config_nfiti_test.yaml')
     moving_image_shape = tuple(config.config_yaml["moving_image_shape"])
     fixed_image_shape = tuple(config.config_yaml["fixed_image_shape"])
 
-    backbone = get_model(moving_image_shape, fixed_image_shape, with_label_inputs=False)
+    backbone = get_model(config, with_label_inputs=False)
 
     print("Backbone inputs:")
     for tensor in backbone.inputs:

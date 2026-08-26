@@ -6,9 +6,12 @@ from tensorflow import keras
 
 from get_model import get_model
 
-def build_registration_network(backbone, moving_image_shape, fixed_image_shape):
+def build_registration_network(config, backbone):
     """Attach a SpatialTransformer to the backbone so the predicted DDF warps the moving
     image and moving label. Returns (registration_model, spatial_transformer)."""
+    
+    moving_image_shape = tuple(config.config_yaml["moving_image_shape"])
+    fixed_image_shape = tuple(config.config_yaml["fixed_image_shape"])
 
     # build transformer layer
     spatial_transformer = vxm.layers.SpatialTransformer(name='transformer')
@@ -33,19 +36,19 @@ def build_registration_network(backbone, moving_image_shape, fixed_image_shape):
     registration_model = keras.Model(inputs=inputs, outputs=outputs)
     return registration_model, spatial_transformer
 
-if __name__ == '__main__':
-    config = Config()
-    moving_image_shape = tuple(config.config_yaml["moving_image_shape"])
-    fixed_image_shape = tuple(config.config_yaml["fixed_image_shape"])
+# if __name__ == '__main__':
+#     config = Config()
+#     moving_image_shape = tuple(config.config_yaml["moving_image_shape"])
+#     fixed_image_shape = tuple(config.config_yaml["fixed_image_shape"])
 
-    registration_model, spatial_transformer = build_registration_network(
-        get_model(moving_image_shape, fixed_image_shape, with_label_inputs=False),
-        moving_image_shape,
-        fixed_image_shape,
-    )
+#     registration_model, spatial_transformer = build_registration_network(
+#         get_model(moving_image_shape, fixed_image_shape, with_label_inputs=False),
+#         moving_image_shape,
+#         fixed_image_shape,
+#     )
 
-    print("Registration network:")
-    for tensor in registration_model.inputs:
-        print(f"    in   {tensor.name:16s} {tensor.shape}")
-    for tensor in registration_model.outputs:
-        print(f"    out  {tensor.name:16s} {tensor.shape}")
+#     print("Registration network:")
+#     for tensor in registration_model.inputs:
+#         print(f"    in   {tensor.name:16s} {tensor.shape}")
+#     for tensor in registration_model.outputs:
+#         print(f"    out  {tensor.name:16s} {tensor.shape}")

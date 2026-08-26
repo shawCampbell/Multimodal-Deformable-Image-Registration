@@ -17,9 +17,13 @@ def resize_3d_image(image, shape):
     return normalised_image
 
 
-def load_dataset_into_cache(f_path, moving_image_shape, fixed_image_shape, with_label_inputs=True):
+def load_dataset_into_cache(config, f_path, with_label_inputs=True):
     """Load every us/mr image (+label) volume below f_path into memory.
     Returns {file_name: {'moving': ..., 'fixed': ...[, 'moving_label': ..., 'fixed_label': ...]}}."""
+
+    moving_image_shape = tuple(config.config_yaml["moving_image_shape"])
+    fixed_image_shape = tuple(config.config_yaml["fixed_image_shape"])
+
     moving_images_path = os.path.join(f_path, 'us_images')
     fixed_images_path = os.path.join(f_path, 'mr_images')
 
@@ -54,22 +58,22 @@ def load_dataset_into_cache(f_path, moving_image_shape, fixed_image_shape, with_
     return cache
 
 
-if __name__ == '__main__':
-    config = Config()
-    moving_image_shape = config.config_yaml['moving_image_shape']
+# if __name__ == '__main__':
+    # config = Config()
+    # moving_image_shape = config.config_yaml['moving_image_shape']
 
-    native_volume = np.random.rand(176, 256, 256)  # pretend this came off the scanner at native resolution
-    working_volume = resize_3d_image(native_volume, moving_image_shape[:-1])
+    # native_volume = np.random.rand(176, 256, 256)  # pretend this came off the scanner at native resolution
+    # working_volume = resize_3d_image(native_volume, moving_image_shape[:-1])
 
-    print(f"resized {native_volume.shape} -> {working_volume.shape}")
-    print(f"intensity range after min-max normalisation: [{working_volume.min():.3f}, {working_volume.max():.3f}]")
+    # print(f"resized {native_volume.shape} -> {working_volume.shape}")
+    # print(f"intensity range after min-max normalisation: [{working_volume.min():.3f}, {working_volume.max():.3f}]")
 
-    # Once nifti_data/{train,val} exists on disk, load_dataset_into_cache returns e.g.:
-    # {
-    #     '<case>.nii.gz': {
-    #         'moving':       float array, moving_image_shape  (resized + normalised),
-    #         'fixed':        float array, fixed_image_shape   (resized + normalised),
-    #         'moving_label': native-resolution label volume (..., ..., ..., 6),
-    #         'fixed_label':  native-resolution label volume (..., ..., ..., 6),
-    #     }, ...
-    # }
+    # # Once nifti_data/{train,val} exists on disk, load_dataset_into_cache returns e.g.:
+    # # {
+    # #     '<case>.nii.gz': {
+    # #         'moving':       float array, moving_image_shape  (resized + normalised),
+    # #         'fixed':        float array, fixed_image_shape   (resized + normalised),
+    # #         'moving_label': native-resolution label volume (..., ..., ..., 6),
+    # #         'fixed_label':  native-resolution label volume (..., ..., ..., 6),
+    # #     }, ...
+    # # }
