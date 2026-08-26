@@ -1,0 +1,14 @@
+# Smaller Images for faster training to debug
+
+# saved results
+save_path_root: 'C:\dev_personal\Thesis\training_results'
+
+# model
+moving_image_shape: [24, 24, 24, 1]  # ultrasound volumes, channel-last
+fixed_image_shape: [24, 24, 24, 1]   # MR volumes, channel-last
+up_filters: [64, 128]
+down_filters: [128, 64, 32]
+
+# caching
+train_path: 'C:\dev_personal\Thesis\train\train'
+val_path: 'C:\dev_personal\Thesis\val\val'
