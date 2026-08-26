@@ -1,4 +1,4 @@
-from config import Config
+from Deformable_Alignment.config import Config
 
 import tensorflow as tf  
 assert tf.__version__.startswith('2.'), 'This tutorial assumes Tensorflow 2.0+'
