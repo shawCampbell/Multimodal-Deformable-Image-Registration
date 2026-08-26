@@ -1,7 +1,7 @@
-from Deformable_Alignment.config import Config
+from config import Config
 
 import numpy as np
-from Deformable_Alignment.caching import resize_3d_image
+from caching import resize_3d_image
 
 def train_generator_(config, batch_size, with_label_inputs=True):
     """Infinite shuffled batches. y_true = [fixed image, zero DDF (regularisation target), fixed label]."""

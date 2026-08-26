@@ -1,10 +1,10 @@
-from Deformable_Alignment.config import Config 
+from config import Config 
 
 import voxelmorph as vxm
 import tensorflow as tf
 from tensorflow import keras 
 
-from Deformable_Alignment.get_model import get_model
+from get_model import get_model
 
 def build_registration_network(config, backbone):
     """Attach a SpatialTransformer to the backbone so the predicted DDF warps the moving

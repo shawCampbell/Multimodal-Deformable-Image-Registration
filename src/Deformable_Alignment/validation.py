@@ -1,4 +1,4 @@
-from Deformable_Alignment.config import Config
+from config import Config
 
 import os
 
@@ -9,9 +9,9 @@ import numpy as np
 import voxelmorph as vxm
 import neurite as ne
 
-from Deformable_Alignment.get_model import get_model
-from Deformable_Alignment.build_model import build_registration_network
-from Deformable_Alignment.generators import test_generator
+from get_model import get_model
+from build_model import build_registration_network
+from generators import test_generator
 
 def plot_registration_overview(config, model_save_path, trial,
                                moving_images_val, fixed_images_val, moved_images_val,

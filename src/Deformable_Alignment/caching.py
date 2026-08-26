@@ -1,4 +1,4 @@
-from Deformable_Alignment.config import Config
+from config import Config
 
 import os
 

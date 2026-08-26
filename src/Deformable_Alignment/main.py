@@ -1,9 +1,9 @@
-from Deformable_Alignment.config import Config
+from config import Config
 
 import os
 
-from Deformable_Alignment.caching import load_dataset_into_cache
-from Deformable_Alignment.training import train_model
+from caching import load_dataset_into_cache
+from training import train_model
 
 if __name__ == "__main__":
     config = Config('C:\\dev_personal\\Thesis\\config_nfiti_preproc.yaml')

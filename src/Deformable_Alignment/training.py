@@ -1,4 +1,4 @@
-from Deformable_Alignment.config import Config
+from config import Config
 
 import os
 import inspect
@@ -6,12 +6,12 @@ import inspect
 import matplotlib.pyplot as plt
 import numpy as np
 
-from Deformable_Alignment.get_model import get_model
-from Deformable_Alignment.build_model import build_registration_network
-from Deformable_Alignment.generators import train_generator_
-from Deformable_Alignment.generators import test_generator
-from Deformable_Alignment.validation import evaluate_validation_dice
-from Deformable_Alignment.configure_losses import configure_losses
+from get_model import get_model
+from build_model import build_registration_network
+from generators import train_generator_
+from generators import test_generator
+from validation import evaluate_validation_dice
+from configure_losses import configure_losses
 
 def train_model(config, similarity_metric, weak_supervision, experiment_name,
                 last_trial=None, latest_weights=None, Verbose=False):
