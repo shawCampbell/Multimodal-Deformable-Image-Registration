@@ -7,7 +7,7 @@
 </p>
 
 # Mulimodal Deformable Image Registration 
-This work is based off of my honours thesis in Electrical and Computer Engineering at the University of Cape Town. The Jupyter Notebooks I used for my thesis were all over the place, so I took them and made a much cleaner Python repo that can be used to replicate my thesis. It has also become more than that - a more general purpose tool for multimodal deformable image registration, as I make the code more flexible.
+This work is based off of my honours thesis in Electrical and Computer Engineering at the University of Cape Town. The Jupyter Notebooks I used for my thesis were all over the place, so I took them and made a much cleaner Python repo that can be used to replicate my thesis. It has also become more than that - a more general purpose tool for multimodal deformable image registration training, as I make the code more flexible.
 
 ## Dependencies
 
